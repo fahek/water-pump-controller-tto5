@@ -319,22 +319,22 @@ documentation:
       - Activate any tap switch 
       - Pump (and related LEDs) should be on again, buzzer should be off
 
-    Testing the configuration feature requires additional external circuits. The last three
-    bidirectional I/O pins can be connected to VCC via a resistor to enable loading the
-    respective configuration value. Or they stay connected to GND via the resistor to skip loading
-    the associated value.
-
-    The other five data inputs can be connected directly to VCC or GND is a single configuration value
-    should be loaded. If more than one configuration should be set, the data lines shuold be connected
-    to a diode matrix. The cathodes of all diodes in a column (reprsenting the bit positions
-    in the configuration value) are connected. The anodes of the diodes in a row are connected, each
-    row is for a specific configuration value.
-    
-    The data pins would be connected to individual pull-down resistors and the cathodes of the diodes
-    in the corresponding column. The anodes of the diodes in a row would be connected to the
-    corresponding bidirectional I/O pin that is set high while the related configuration value is read in.
-
-    Related tests would set one or more configurations and the timing would be observed.
+      Testing the configuration feature requires additional external circuits. The last three
+      bidirectional I/O pins can be connected to VCC via a resistor to enable loading the
+      respective configuration value. Or they stay connected to GND via the resistor to skip loading
+      the associated value.
+  
+      The other five data inputs can be connected directly to VCC or GND is a single configuration value
+      should be loaded. If more than one configuration should be set, the data lines shuold be connected
+      to a diode matrix. The cathodes of all diodes in a column (reprsenting the bit positions
+      in the configuration value) are connected. The anodes of the diodes in a row are connected, each
+      row is for a specific configuration value.
+      
+      The data pins would be connected to individual pull-down resistors and the cathodes of the diodes
+      in the corresponding column. The anodes of the diodes in a row would be connected to the
+      corresponding bidirectional I/O pin that is set high while the related configuration value is read in.
+  
+      Related tests would set one or more configurations and the timing would be observed.
     
 # A description of what the inputs do (e.g. red button, SPI CLK, SPI MOSI, etc).
   inputs:               
