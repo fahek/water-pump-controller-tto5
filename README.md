@@ -14,7 +14,7 @@ can also be used in other places where devices should not run for too long.
 A typical camper van has a tiny bathroom and a kitchen which have water supply.
 The sinks are oftentimes equipped with taps that have integrated switches and there
 is a toilet which has a pushbutton for flushing. It might also have a shower in the
-batchroom and/or one for taking a shower outside.
+bathroom and/or one for taking a shower outside.
 
 All switches are basically wired in parallel and turn on a single pump in the water
 tank. There is also a main switch that cuts power to the whole pumping system.
@@ -25,7 +25,7 @@ However, the manuals usually mention that the main switch should be turned off w
 water is needed to make sure that the pump is not running too long. This switch can be
 hard to reach and it is therefore left on most of the time. Usually that does not cause
 any problems (since the switches in the taps will be off when no water is requested). But
-I know of cases where the pump was running when no water was taken. It is then unclear
+I know of cases where the pump was indeed running when no water was taken. It is then unclear
 how long the pump was running. Luckily the pumps do not always break from that. But
 having it running unintentionally is still not ideal and consumes a lot of power which
 might be limited in many situations.
@@ -70,11 +70,11 @@ The timeout feature can be disabled.
 #### Taps With Switches
 
 This is the main use case, basically as described above. The controller has six separate
-inputs for switches. This can be used to help with finding problems with stuck switches but
-is also helpful to keep certain circuits separated. In common systems for example the toilet
-flush button activates the pump and also a solenoid valve. The valve is releasing the water
-similar to what the classical part of the taps would do for the sinks. Having a dedicated
-input at the controller can help with simplifying parts of the wiring.
+inputs for switches. Having separate inputs can be used to help with finding problems with
+stuck switches but is also helpful to keep certain circuits separated. In common systems
+for example the toilet flush button activates the pump and also a solenoid valve. The valve
+is releasing the water similar to what the classical part of the taps would do for the sinks.
+Having a dedicated input at the controller can help with simplifying parts of the wiring.
 
 #### Pressure Switch
 
@@ -109,17 +109,17 @@ The I/O pins are used as additional inputs for configuring the warning and timeo
 The warning and timeout periods are stored in a register of five bits each. For the default time
 scaling, the most significant bit is for 128s, the LSB is for 8s. With that the periods can be
 selcted from 8s to 248s (approx 4 minutes) in steps of 8s. It is also possible to configure
-a scaling factor for the warning and timeout periods, independant from changing the clock signal
-which would also affect the pitch and sequence of the buzzer signal.
+a scaling factor for the warning and timeout periods, independant from changing the clock signal.
+Changin the clock would also affect the pitch and sequence of the buzzer signal.
 
-Five of the I/O pins are used as data pins, fed into these registers. The other three pins are used
+Five of the I/O pins are used as data pins fed into these registers. The other three pins are used
 to store the data to the respective register. These are input/output pins. After a reset, these pins
 are read and stored in a flip-flop each. If an input is high the related register is read from the
 external configuration, otherwise the default value is kept. If the configuration should be read
 from the external configuration, the I/O pins are set as a high output one by one bringing the data
 inputs to a high state as configured for each value. The configurations should be combined using
-diodes (and maybe pull-down resistors). In the drawing resistors are used instead (diodes not yet
-available in Wokwi).
+diodes (and maybe pull-down resistors). In the [Wokwi drawing](https://wokwi.com/projects/380005495431181313)
+this project is based on resistors are used instead (diodes not yet available in Wokwi).
 
 If the timeout period is less or equal to the warning period, the warning is activated at the same
 time as the timeout, effectively skipping the warning period.
@@ -139,7 +139,7 @@ be used as well.
 The clock could also be in a different range. That can be helpful, if the circuit for setting the
 times should be avoided or if the available range is not suitable for some other use case. However,
 this would also affect the pitch and durations of the buzzer sounds that are derived from the same
-clock.
+clock with fixed ratios.
 
 #### Reset
 
@@ -156,7 +156,7 @@ This pin is meant to drive a transistor that can control the pump motor either d
 a relay.
 
 It can also be used to drive an LED that could indicate a running pump. There are other pins for
-LEDs with slightly different meaning, see below.
+LEDs with slightly different meaning as described below.
 
 #### Buzzer (OUT6)
 
@@ -208,7 +208,7 @@ the controller and a logical combination of water request and timer (warning pha
 The buzzer is activated during the warning phase and when the timeout is active with different signals.
 Both signals are combined using an OR-gate.
 
-The warning signal is generated using a group or AND-gates from the 1kHz signal, the warning state line
+The warning signal is generated using a group of AND-gates from the 1kHz signal, the warning state line
 and the lines for 0.5Hz to 4Hz. This results in a beep that repeats every 2 seconds and is on for 125 ms.
 
 The generation of the timed-out signal is more complex and described below since it contains more timing
@@ -256,8 +256,8 @@ Flip-Flop mentioned above. Depending on which input is active, one of the sequen
 the Flip-Flop that activates the buzzer. The signals are combined using AND-gates for selecting the right
 sequence step and OR-gates to allow any of those selected signals to reset the buzzer active state.
 
-The actual timed-out buzzer signal is then a combination of the 2kHz signal the duration and interval line
-(two beeps per second at 25% duty cycle), enabled by the already described active Flip-Flop. This times-out
+The actual timed-out buzzer signal is then a combination of the 2kHz signal, the duration and interval line
+(two beeps per second at 25% duty cycle), enabled by the already described active Flip-Flop. This timed-out
 signal is then combined into the buzzer output signal using the OR-gate as described above.
 
 ## Testing
