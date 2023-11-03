@@ -266,12 +266,12 @@ signal is then combined into the buzzer output signal using the OR-gate as descr
 
 For testing the circuit, the outputs (including the pump output) can be connected to LEDs or as in the test board
 to a 7-segment display. In the test board the pump output corresponds to the top segment. The inputs can be connected
-to DIP switches. The clock should be set to 32768 Hz (2^15 Hz), the reset signal should provide a power-on reset and
+to DIP switches. The clock should be set to 32768 Hz (2^15 Hz). The reset signal should provide a power-on reset and
 optionally a manual reset that might be handy for testing. In the minimal setup, the last three bidirectional I/O pins should be
-connected via separate resistors to GND. Connecting them directly to GND should be okay as well for a quick test. The pins can be
+connected via separate resistors to GND. Connecting them directly to GND should be okay as well for a quick test. These pins can be
 outputs that should only be driven to low in this case, but do not connect them directly to VCC. The other I/O pins can be left
-open or connected to GND to avoid floating pins. This can be done directly or via pull-down resistors to plan ahead for more
-tests with additional circuitry.
+open or connected to GND to avoid floating pins. The connection to GND can be done directly or via pull-down resistors to plan 
+ahead for more tests with additional circuitry.
 
 #### Timer Disabled
 
@@ -289,7 +289,7 @@ The test is about enabling the pump while not making use of the timer:
 The test is to verify the high pressure switch:
 
 - Set input 7 (the high pressure switch) high
-- Set any comnination of tap switches high
+- Set any combination of tap switches high
 - Select any state for the timer enable pin (input 6)
 - The pump output should be off
 - The pump LED, ActiveLEDs and buzzer can be on, depending on the state of the controller
@@ -302,11 +302,11 @@ A simple test for the timer with default values:
 - Keep input 7 low to see the pump output
 - Set any combination of tap switches (input 0 - 5) high
 - Wait
-- After 128s, the LEDs outputs should change from ActiveNormal to ActiveWarning
+- After 128s, the LED outputs should change from ActiveNormal to ActiveWarning
   (bottom right to bottom on the 7-segment display) and the RunLong LED (top left
   for 7-segment display) should be activated
 - At the same time the buzzer should be activated every two seconds. LEDs would blink
-  dimm (center segment).
+  dim (center segment).
 - After another 32s, the pump and pump LED should be turned off and the other LEDs should
   go from ActiveWarning to ActiveHalted (bottom to bottom left segment).
 - The buzzer should emit a sequence corresponding to the first active tap input every 16
@@ -324,9 +324,9 @@ respective configuration value. Or they stay connected to GND via the resistor t
 the associated value.
 
 The other five data inputs can be connected directly to VCC or GND if a single configuration value
-should be loaded. If more than one configuration should be set, the data lines shuold be connected
-to a diode matrix. The cathodes of all diodes in a column (reprsenting the bit positions
-in the configuration value) are connected. The anodes of the diodes in a row are connected, each
+should be loaded. If more than one configuration should be set, the data lines should be connected
+to a diode matrix. The cathodes of all diodes in a column (representing the bit positions
+in the configuration values) are connected. The anodes of the diodes in a row are connected, each
 row is for a specific configuration value.
 
 The data pins would be connected to individual pull-down resistors and the cathodes of the diodes
@@ -340,7 +340,7 @@ corresponding bidirectional I/O pin that is set high while the related configura
       <b>Figure 3:</b> Setup for more complex tests
   </p>
 
-The drawing shows the idea of the configuration matrix. Removing R_CFG for any of the rows, skips
+The drawing shows the idea of the configuration matrix. Removing R_CFG for any of the rows skips
 the storage of the associated configuration value. The diodes D_CFG would be removed or disconnected
 according to the required configuration value. Removing a diode would result in a low configuration
 bit at the related position, placing and connecting the diode as shown would give a high configuration
@@ -358,7 +358,7 @@ The tests would set one or more configurations and the timing would be observed.
 - 3 - TapD: Input for switch of fourth tap. Active tap should be high level.
 - 4 - TapE: Input for switch of fifth tap. Active tap should be high level.
 - 5 - TapF: Input for switch of sixth tap. Active tap should be high level.
-- 6 - EnableTimeout: Timeout is anabled when high level is applied.
+- 6 - EnableTimeout: Timeout is enabled when high level is applied.
 - 7 - PressureHigh: Input for optional pressure sensor. Pump is disabled when signal has high level.
 
 ### Outputs
