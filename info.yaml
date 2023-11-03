@@ -38,22 +38,23 @@ documentation:
       bathroom, external shower) can use a dedicated input. It has another input for a high pressure switch that
       would turn off the pump if the pressure rises when all taps are actually closed.
 
-      The main feature is a timer that can give an reminder when the water is running for an untypically long period and automatically
-      switch off the pump at some point as well. When the switch off time was reached the buzzer signal can help to indicate which
-      switch is still active.
+      The main feature is a timer that can give an reminder using a buzzer when the water is running for an untypically long period
+      and automatically switch off the pump at some point as well. When the switch off time was reached the buzzer signal can help to
+      indicate which switch is still active.
 
 # Instructions on how someone could test your project, include things like what buttons do what and how to set the clock if needed
   how_to_test:  |
       For testing the circuit, the outputs (including the pump output) can be connected to LEDs or as in the test board
       to a 7-segment display. In the test board the pump output corresponds to the top segment. The inputs can be connected
-      to DIP switches. The clock should be set to 32768 Hz (2^15 Hz), the reset signal should provide a power-on reset and
+      to DIP switches. The clock should be set to 32768 Hz (2^15 Hz). The reset signal should provide a power-on reset and
       optionally a manual reset that might be handy for testing. In the minimal setup, the last three bidirectional I/O pins should be
       connected via separate resistors to GND. Connecting them directly to GND should be okay as well for a quick test. The pins can be
       outputs that should only be driven to low in this case, but do not connect them directly to VCC. The other I/O pins can be left
-      open or connected to GND to avoid floating pins. This can be done directly or via pull-down resistors to plan ahead for more
-      tests with additional circuitry.
+      open or connected to GND to avoid floating pins. The connection to GND can be done directly or via pull-down resistors to plan
+      ahead for more tests with additional circuitry.
 
       The first test is about enabling the pump while not making use of the timer:
+      
       - Keep the input 6 (DIP 7) low to disable the timer
       - Keep the input 7 (high pressure switch) low 
       - Set any combination of tap switches (inputs 0 - 5) high
@@ -62,13 +63,15 @@ documentation:
       - With all tap switches off all outputs should be off as well
 
       The second test is to verify the high pressure switch:
+
       - Set input 7 (the high pressure switch) high
-      - Set any comnination of tap switches high
+      - Set any combination of tap switches high
       - Select any state for the timer enable pin (input 6)
       - The pump output should be off
       - The pump LED, ActiveLEDs and buzzer can be on, depending on the state of the controller
 
       A simple test for the timer with default values:
+      
       - Set input 6 high to enable the timer feature
       - Keep input 7 low to see the pump output
       - Set any combination of tap switches (input 0 - 5) high
@@ -77,7 +80,7 @@ documentation:
         (bottom right to bottom on the 7-segment display) and the RunLong LED (top left
         for 7-segment display) should be activated
       - At the same time the buzzer should be activated every two seconds. LEDs would blink
-        dimm (center segment).
+        dim (center segment).
       - After another 32s, the pump and pump LED should be turned off and the other LEDs should
         go from ActiveWarning to ActiveHalted (bottom to bottom left segment).
       - The buzzer should emit a sequence corresponding to the first active tap input every 16
@@ -87,22 +90,9 @@ documentation:
       - Activate any tap switch 
       - Pump (and related LEDs) should be on again, buzzer should be off
 
-      Testing the configuration feature requires additional external circuits. The last three
-      bidirectional I/O pins can be connected to VCC via a resistor to enable loading the
-      respective configuration value. Or they stay connected to GND via the resistor to skip loading
-      the associated value.
-  
-      The other five data inputs can be connected directly to VCC or GND if a single configuration value
-      should be loaded. If more than one configuration should be set, the data lines shuold be connected
-      to a diode matrix. The cathodes of all diodes in a column (reprsenting the bit positions
-      in the configuration value) are connected. The anodes of the diodes in a row are connected, each
-      row is for a specific configuration value.
-      
-      The data pins would be connected to individual pull-down resistors and the cathodes of the diodes
-      in the corresponding column. The anodes of the diodes in a row would be connected to the
-      corresponding bidirectional I/O pin that is set high while the related configuration value is read in.
-  
-      Related tests would set one or more configurations and the timing would be observed.
+      Testing the configuration feature requires additional external circuits. Please refer to
+      the testing section of the README of the github project
+      (https://github.com/fahek/water-pump-controller-tto5#more-advanced-tests).
     
 # A description of what the inputs do (e.g. red button, SPI CLK, SPI MOSI, etc).
   inputs:               
@@ -132,7 +122,7 @@ documentation:
     - CFG3
     - CFG4
     - TimerScaleConfig
-    - WarningTimdConfig
+    - WarningTimeConfig
     - TimeoutConfig
 
 # The following fields are optional
