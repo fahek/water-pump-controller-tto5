@@ -164,6 +164,11 @@ The controller can signal a long running pump with a buzzer. It will first give 
 the water is running relatively long already. When the water is automatically turned off from the
 timeout, the signal helps to identify the switch that is still active.
 
+There is an additional output BuzzerHaltedOnly (OUT7) which only outputs the buzzer signal for the
+timeout. This allows to have a silent warning period (LED only) but audible signal for the alarm. And
+by connecting a buzzer between OUT6 and OUT7 the differential signal can be used to drive a buzzer
+only for the warning period (or separate buzzers e.g. with different volumes for each phase).
+
 #### LEDs
 
 There are a couple of outputs that can indicate the state of the controller.
