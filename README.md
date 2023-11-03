@@ -3,10 +3,10 @@
 ## What Is This?
 
   <p align="center">
-  <img src=./drawings/wpc_overview.png>
+  <img src=./drawings/wpc_system_sketch.png>
   </p>
   <p align = "center">
-      <b>Figure 1:</b> The water system with the controller
+      <b>Figure 1:</b> Simplified drawing of the water system with the controller
   </p>
 
 The controller was developed with a typical water system of a camper van in mind but
